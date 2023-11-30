@@ -8,14 +8,13 @@ class LoginFormSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _formKey = GlobalKey<FormState>();
     final state = ref.watch(loginControllerProvider);
 
     final controller = ref.read(loginControllerProvider.notifier);
 
     return SingleChildScrollView(
       child: Form(
-        key: _formKey,
+        key: state.formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,

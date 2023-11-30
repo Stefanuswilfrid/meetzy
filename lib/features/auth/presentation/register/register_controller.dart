@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meetzy/features/auth/presentation/register/register_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -24,10 +24,32 @@ class RegisterController extends StateNotifier<RegisterState> {
     }
 
     try {
+      state = state.copyWith(
+        registerValue: const AsyncLoading(),
+      );
       final userCredentials = await _firebase.createUserWithEmailAndPassword(
           email: _enteredEmail, password: _enteredPassword);
-    } on FirebaseException catch (e) {
-      throw e.message!;
+
+      final result = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredentials.user!.uid)
+          .set({
+        'fullname': nameController.text.trim(),
+        'email': _enteredEmail,
+        'role': state.roleValue,
+        // Add other user information as needed
+      });
+
+      state = state.copyWith(
+        registerValue: AsyncValue.data(userCredentials.toString()),
+      );
+    } on FirebaseException catch (error, stackTrace) {
+      state = state.copyWith(
+        registerValue: AsyncError(error, stackTrace),
+        errors: {'message': error.message},
+      );
+
+      throw error.message as Object;
     }
   }
 

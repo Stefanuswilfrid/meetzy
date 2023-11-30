@@ -8,8 +8,13 @@ import 'package:meetzy/firebase_options.dart';
 import 'package:meetzy/themes/color_app.dart';
 import 'package:meetzy/themes/pallete.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
+  await dotenv.load(fileName: ".env");
+
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const ProviderScope(child: MyApp()));

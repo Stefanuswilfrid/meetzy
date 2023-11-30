@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meetzy/common_widgets/snack_bar/snack_bar_widget.dart';
+import 'package:meetzy/features/auth/presentation/register/register_controller.dart';
 import 'package:meetzy/features/auth/presentation/register/widget/register_button_section.dart';
 import 'package:meetzy/features/auth/presentation/register/widget/register_form_section.dart';
 import 'package:meetzy/themes/color_app.dart';
@@ -9,6 +11,23 @@ class RegisterPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(registerControllerProvider, (prevState, state) {
+      if (prevState?.registerValue != state.registerValue) {
+        state.registerValue.whenOrNull(
+          data: (message) {
+            if (message != null) {
+              Navigator.of(context).removeRouteBelow(ModalRoute.of(context)!);
+
+              Navigator.pushNamed(context, "/login");
+            }
+          },
+          error: (e, stackTrace) {
+            final message = state.errors?['message'];
+            appSnackBar(context, ColorApp.red, "Error : $message");
+          },
+        );
+      }
+    });
     return Scaffold(
         backgroundColor: Colors.white,
         body: Center(

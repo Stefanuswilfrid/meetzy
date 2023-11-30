@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meetzy/common_widgets/padding/padding_widget.dart';
+import 'package:meetzy/common_widgets/snack_bar/snack_bar_widget.dart';
+import 'package:meetzy/features/auth/presentation/login/login_controller.dart';
 import 'package:meetzy/features/auth/presentation/login/widget/login_button_section.dart';
 import 'package:meetzy/features/auth/presentation/login/widget/login_form_section.dart';
 import 'package:meetzy/themes/color_app.dart';
@@ -10,6 +12,17 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(loginControllerProvider, (prevState, state) {
+      if (prevState?.loginValue != state.loginValue) {
+        state.loginValue.whenOrNull(data: (data) {
+          if (data != null) {}
+        });
+      }
+      if (state.errors != null) {
+        final message = state.errors?['message'];
+        appSnackBar(context, ColorApp.red, "Error : $message");
+      }
+    });
     return Scaffold(
         backgroundColor: Colors.white,
         body: Center(
