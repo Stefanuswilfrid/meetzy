@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meetzy/features/auth/presentation/login/login_controller.dart';
-import 'package:meetzy/shared/button_widget.dart';
+import 'package:meetzy/src/features/auth/presentation/login/login_controller.dart';
+import 'package:meetzy/src/shared/button_widget.dart';
 import 'package:meetzy/themes/color_app.dart';
 // import 'package:setiket/src/common_widgets/common_widgets.dart';
 // import 'package:setiket/src/features/auth/presentation/login/login_controller.dart';

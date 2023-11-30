@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:meetzy/features/auth/presentation/login/login_page.dart';
-import 'package:meetzy/features/auth/presentation/register/register_page.dart';
+import 'package:meetzy/src/features/auth/presentation/login/login_page.dart';
+import 'package:meetzy/src/features/auth/presentation/register/register_page.dart';
 import 'package:meetzy/firebase_options.dart';
+import 'package:meetzy/src/routes/app_routes.dart';
 import 'package:meetzy/themes/color_app.dart';
 import 'package:meetzy/themes/pallete.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -20,20 +21,23 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.read(goRouterProvider);
+
     return ScreenUtilInit(builder: (context, child) {
       return OverlaySupport.global(
-          child: MaterialApp(
+          child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: _appTheme,
-        initialRoute: '/login',
-        routes: routes,
+        routerDelegate: router.routerDelegate,
+        routeInformationParser: router.routeInformationParser,
+        routeInformationProvider: router.routeInformationProvider,
       ));
     });
   }

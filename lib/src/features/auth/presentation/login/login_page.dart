@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meetzy/common_widgets/padding/padding_widget.dart';
-import 'package:meetzy/common_widgets/snack_bar/snack_bar_widget.dart';
-import 'package:meetzy/features/auth/presentation/login/login_controller.dart';
-import 'package:meetzy/features/auth/presentation/login/widget/login_button_section.dart';
-import 'package:meetzy/features/auth/presentation/login/widget/login_form_section.dart';
+import 'package:go_router/go_router.dart';
+import 'package:meetzy/src/common_widgets/padding/padding_widget.dart';
+import 'package:meetzy/src/common_widgets/snack_bar/snack_bar_widget.dart';
+import 'package:meetzy/src/features/auth/presentation/login/login_controller.dart';
+import 'package:meetzy/src/features/auth/presentation/login/widget/login_button_section.dart';
+import 'package:meetzy/src/features/auth/presentation/login/widget/login_form_section.dart';
+import 'package:meetzy/src/routes/app_routes.dart';
 import 'package:meetzy/themes/color_app.dart';
 
 class LoginPage extends ConsumerWidget {
@@ -55,7 +57,8 @@ class LoginPage extends ConsumerWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, "/register");
+                      // Navigator.pushNamed(context, "/register");
+                      context.pushNamed(Routes.register.name);
                     },
                     child: Text(
                       ' Sign Up',

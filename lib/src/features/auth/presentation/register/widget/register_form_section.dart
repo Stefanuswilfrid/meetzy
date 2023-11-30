@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meetzy/features/auth/presentation/register/register_controller.dart';
-import 'package:meetzy/shared/dropdown_form_widget.dart';
-import 'package:meetzy/shared/input_form_widget.dart';
+import 'package:meetzy/src/features/auth/presentation/register/register_controller.dart';
+import 'package:meetzy/src/shared/dropdown_form_widget.dart';
+import 'package:meetzy/src/shared/input_form_widget.dart';
 
 class RegisterFormSection extends ConsumerWidget {
   const RegisterFormSection({Key? key});

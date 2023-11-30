@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meetzy/common_widgets/snack_bar/snack_bar_widget.dart';
-import 'package:meetzy/features/auth/presentation/register/register_controller.dart';
-import 'package:meetzy/features/auth/presentation/register/widget/register_button_section.dart';
-import 'package:meetzy/features/auth/presentation/register/widget/register_form_section.dart';
+import 'package:go_router/go_router.dart';
+import 'package:meetzy/src/common_widgets/snack_bar/snack_bar_widget.dart';
+import 'package:meetzy/src/features/auth/presentation/register/register_controller.dart';
+import 'package:meetzy/src/features/auth/presentation/register/widget/register_button_section.dart';
+import 'package:meetzy/src/features/auth/presentation/register/widget/register_form_section.dart';
+import 'package:meetzy/src/routes/app_routes.dart';
 import 'package:meetzy/themes/color_app.dart';
 
 class RegisterPage extends ConsumerWidget {
@@ -16,9 +18,10 @@ class RegisterPage extends ConsumerWidget {
         state.registerValue.whenOrNull(
           data: (message) {
             if (message != null) {
-              Navigator.of(context).removeRouteBelow(ModalRoute.of(context)!);
+              // Navigator.of(context).removeRouteBelow(ModalRoute.of(context)!);
 
-              Navigator.pushNamed(context, "/login");
+              // Navigator.pushNamed(context, "/login");
+              context.goNamed(Routes.login.name);
             }
           },
           error: (e, stackTrace) {
@@ -53,7 +56,8 @@ class RegisterPage extends ConsumerWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.pop(context);
+                              // Navigator.pop(context);
+                              context.pop();
                             },
                             child: Text(
                               ' Sign In',

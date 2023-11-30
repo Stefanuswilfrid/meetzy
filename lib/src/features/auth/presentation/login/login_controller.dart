@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:meetzy/features/auth/presentation/login/login_state.dart';
+import 'package:meetzy/src/features/auth/presentation/login/login_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 final _firebase = FirebaseAuth.instance;

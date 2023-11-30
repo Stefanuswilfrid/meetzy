@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:meetzy/shared/loading_widget.dart';
+import 'package:meetzy/src/shared/loading_widget.dart';
 import 'package:meetzy/themes/color_app.dart';
 import 'package:meetzy/themes/pallete.dart';
 import 'package:meetzy/themes/size_app.dart';

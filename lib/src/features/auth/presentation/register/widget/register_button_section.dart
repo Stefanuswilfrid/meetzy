@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meetzy/features/auth/presentation/register/register_controller.dart';
-import 'package:meetzy/shared/button_widget.dart';
+import 'package:meetzy/src/features/auth/presentation/register/register_controller.dart';
+import 'package:meetzy/src/shared/button_widget.dart';
 
 class RegisterButtonSection extends ConsumerWidget {
   const RegisterButtonSection({
