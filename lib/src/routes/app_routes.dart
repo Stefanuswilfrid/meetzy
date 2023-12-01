@@ -3,11 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meetzy/src/features/auth/presentation/login/login_page.dart';
 import 'package:meetzy/src/features/auth/presentation/register/register_page.dart';
+import 'package:meetzy/src/features/common/presentation/home/home_page.dart';
+import 'package:meetzy/src/features/common/presentation/splash/splash_page.dart';
 
-enum Routes {
-  login,
-  register,
-}
+enum Routes { login, register, home, splash }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -21,6 +20,11 @@ final goRouterProvider = Provider<GoRouter>(
       redirectLimit: 1,
       routes: [
         GoRoute(
+          path: '/splash',
+          name: Routes.splash.name,
+          builder: (context, state) => const SplashPage(),
+        ),
+        GoRoute(
           path: '/register',
           name: Routes.register.name,
           builder: (context, state) => const RegisterPage(),
@@ -29,6 +33,12 @@ final goRouterProvider = Provider<GoRouter>(
           path: '/login',
           name: Routes.login.name,
           builder: (context, state) => const LoginPage(),
+        ),
+        GoRoute(
+          path: '/home',
+          name: Routes.home.name,
+          builder: (context, state) => const HomePage(),
+          routes: const [],
         ),
       ],
     );
