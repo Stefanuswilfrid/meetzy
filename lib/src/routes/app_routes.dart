@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meetzy/src/features/auth/presentation/login/login_page.dart';
 import 'package:meetzy/src/features/auth/presentation/register/register_page.dart';
+import 'package:meetzy/src/features/common/presentation/home/home_botnavbar_page.dart';
 import 'package:meetzy/src/features/common/presentation/home/home_page.dart';
 import 'package:meetzy/src/features/common/presentation/splash/splash_page.dart';
 
@@ -37,7 +38,7 @@ final goRouterProvider = Provider<GoRouter>(
         GoRoute(
           path: '/home',
           name: Routes.home.name,
-          builder: (context, state) => const HomePage(),
+          builder: (context, state) => const HomeBotNavBarScreen(),
           routes: const [],
         ),
       ],

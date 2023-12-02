@@ -32,7 +32,7 @@ class SplashPageState extends ConsumerState<SplashPage> {
       body: CircleBackgroundWidget(
         child: Center(
           child: Image.asset(
-            "assets/meetzy__logo.png",
+            "assets/images/meetzy__logo.png",
             width: MediaQuery.of(context).size.width * (0.60),
             fit: BoxFit.fitWidth,
           ),
