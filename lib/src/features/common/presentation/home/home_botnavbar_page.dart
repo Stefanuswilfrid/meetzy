@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meetzy/src/features/common/presentation/home/home_controller.dart';
 import 'package:meetzy/src/features/common/presentation/home/home_page.dart';
+import 'package:meetzy/src/features/common/presentation/home/home_state.dart';
 import 'package:meetzy/themes/color_app.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,14 +16,19 @@ class HomeBotNavBarScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeBotNavBarScreenState extends ConsumerState<HomeBotNavBarScreen> {
+  HomeController get controller => ref.read(homeControllerProvider.notifier);
+  HomeState get state => ref.watch(homeControllerProvider);
   @override
   void initState() {
     super.initState();
   }
 
+//SvgPicture.asset('assets/icons/ic_home_active.svg')
   @override
   Widget build(BuildContext context) {
     final bucket = PageStorageBucket();
+    final currentIndex = state.currentIndex;
+    final currentScreen = state.currentScreen;
 
     return SafeArea(
       top: false,
@@ -29,7 +36,7 @@ class _HomeBotNavBarScreenState extends ConsumerState<HomeBotNavBarScreen> {
       child: Scaffold(
         body: PageStorage(
           bucket: bucket,
-          child: HomePage(),
+          child: currentScreen,
         ),
         bottomNavigationBar: Container(
           padding: EdgeInsets.only(top: 10.sp),
@@ -37,22 +44,31 @@ class _HomeBotNavBarScreenState extends ConsumerState<HomeBotNavBarScreen> {
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             iconSize: 24.0.sp,
-            // onTap: (index) => controller.setPage(index),
+            currentIndex: currentIndex,
+            onTap: (index) => controller.setPage(index),
             items: [
               BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/ic_home_active.svg'),
+                icon: !state.isHomeActive
+                    ? SvgPicture.asset('assets/icons/ic_home_deactive.svg')
+                    : SvgPicture.asset('assets/icons/ic_home_active.svg'),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/ic_explore_deactive.svg'),
+                icon: !state.isExploreActive
+                    ? SvgPicture.asset('assets/icons/ic_explore_deactive.svg')
+                    : SvgPicture.asset('assets/icons/ic_explore_active.svg'),
                 label: 'Explore',
               ),
               BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/ic_events_deactive.svg'),
+                icon: !state.isEventsActive
+                    ? SvgPicture.asset('assets/icons/ic_events_deactive.svg')
+                    : SvgPicture.asset('assets/icons/ic_events_active.svg'),
                 label: 'Events',
               ),
               BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/ic_profile_deactive.svg'),
+                icon: !state.isProfileActive
+                    ? SvgPicture.asset('assets/icons/ic_profile_deactive.svg')
+                    : SvgPicture.asset('assets/icons/ic_profile_active.svg'),
                 label: 'Profile',
               ),
             ],
