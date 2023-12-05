@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meetzy/src/features/common/domain/event.dart';
 import 'package:meetzy/src/features/common/domain/home.dart';
 import 'package:meetzy/src/features/common/presentation/home/home_page.dart';
 
@@ -15,6 +16,7 @@ class HomeState {
   final AsyncValue<User?> userValue;
   final Home? home;
   final User? user;
+  final List<Event>? eventListItems;
 
   HomeState({
     this.isHomeActive = true,
@@ -27,6 +29,7 @@ class HomeState {
     this.userValue = const AsyncLoading(),
     this.home,
     this.user,
+    this.eventListItems,
   });
 
   HomeState copyWith({
@@ -40,6 +43,7 @@ class HomeState {
     AsyncValue<User?>? userValue,
     Home? home,
     User? user,
+    List<Event>? eventListItems,
   }) {
     return HomeState(
       isHomeActive: isHomeActive ?? this.isHomeActive,
@@ -52,6 +56,7 @@ class HomeState {
       userValue: userValue ?? this.userValue,
       home: home ?? this.home,
       user: user ?? this.user,
+      eventListItems: eventListItems ?? this.eventListItems,
     );
   }
 }

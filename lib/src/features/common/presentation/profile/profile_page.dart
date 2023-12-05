@@ -26,6 +26,8 @@ class ProfilePage extends ConsumerWidget {
                       'Profile',
                       style: TextStyle(
                         fontSize: ScreenUtil().setSp(24),
+                        fontWeight: FontWeight.w600,
+                        color: ColorApp.black,
                       ),
                     ),
                     Gap.h28,

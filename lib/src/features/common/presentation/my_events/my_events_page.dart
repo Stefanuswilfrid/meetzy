@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meetzy/src/common_widgets/padding/padding_widget.dart';
 import 'package:meetzy/src/common_widgets/status_bar/status_bar_widget.dart';
+import 'package:meetzy/src/features/common/presentation/my_events/my_events_controller.dart';
 import 'package:meetzy/src/features/common/presentation/my_events/widget/my_events_status.dart';
 import 'package:meetzy/src/features/common/presentation/my_events/widget/my_events_top_bar.dart';
 import 'package:meetzy/src/features/common/presentation/my_events/widget/no_upcoming_event.dart';
@@ -15,6 +16,8 @@ class MyEventsPage extends ConsumerStatefulWidget {
 }
 
 class _MyEventsPageState extends ConsumerState<MyEventsPage> {
+  MyEventsController get controller =>
+      ref.read(myEventsControllerProvider.notifier);
   @override
   Widget build(BuildContext context) {
     return StatusBarWidget(

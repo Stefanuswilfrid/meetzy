@@ -5,14 +5,14 @@ import 'package:meetzy/src/features/common/data/responses/event_response.dart';
 import 'package:meetzy/src/shared/string.dart';
 
 class Event {
-  final int id;
+  final String id;
   final int userId;
   final String title;
   final String description;
   final String imageUrl;
   final DateTime startDatetime;
   final DateTime endDatetime;
-  final CityEvent city;
+  final String city;
   final String locationDetail;
   final int ticketPrice;
   final int capacity;
@@ -46,7 +46,7 @@ class Event {
       'imageUrl': imageUrl,
       'startDatetime': startDatetime.toIso8601String(),
       'endDatetime': endDatetime.toIso8601String(),
-      'city': city.value,
+      'city': city,
       'locationDetail': locationDetail,
       'ticketPrice': ticketPrice,
       'capacity': capacity,
@@ -58,14 +58,14 @@ class Event {
 
   factory Event.fromMap(Map<String, dynamic> map) {
     return Event(
-      id: map['id'] as int,
+      id: map['id'] as String,
       userId: map['userId'] as int,
       title: map['title'] as String,
       description: map['description'] as String,
       imageUrl: map['imageUrl'] as String,
       startDatetime: DateTime.parse(map['startDatetime']),
       endDatetime: DateTime.parse(map['startDatetime']),
-      city: (map['city'] as String).cityEvent,
+      city: (map['city'] as String),
       locationDetail: map['locationDetail'] as String,
       ticketPrice: map['ticketPrice'] as int,
       capacity: map['capacity'] as int,
@@ -82,7 +82,7 @@ class Event {
 
   factory Event.fromResponse(EventResponse response) {
     return Event(
-      id: response.id ?? 0,
+      id: response.id ?? "",
       userId: response.userId ?? 0,
       title: response.title ?? '',
       description: response.description ?? '',
@@ -93,7 +93,7 @@ class Event {
       endDatetime: response.endDateTime != null
           ? DateTime.parse(response.endDateTime.toString())
           : DateTime.now(),
-      city: response.city ?? CityEvent.other,
+      city: response.city ?? '',
       locationDetail: response.locationDetail ?? '',
       ticketPrice: response.ticketPrice ?? 0,
       capacity: response.capacity ?? 0,

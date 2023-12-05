@@ -223,7 +223,7 @@ class EventCardWidget extends ConsumerWidget {
                       SizedBox(
                         width: context.screenWidthPercentage(0.4),
                         child: Text(
-                          event.city.name.toUpperCase(),
+                          event.city.toUpperCase(),
                           style: TextStyle(
                             fontSize: ScreenUtil().setSp(14),
                             color: Palette.colorGray.withOpacity(0.7),

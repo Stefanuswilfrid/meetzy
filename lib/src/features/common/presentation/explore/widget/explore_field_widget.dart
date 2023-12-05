@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meetzy/src/features/common/presentation/explore/widget/filter_widget.dart';
 import 'package:meetzy/src/shared/extensions/build_context.dart';
 import 'package:meetzy/themes/color_app.dart';
 import 'package:meetzy/themes/pallete.dart';
@@ -64,10 +65,7 @@ class ExploreFieldWidget extends ConsumerWidget {
                   minChildSize: 0.73,
                   expand: true,
                   builder: (context, scrollController) {
-                    return Scaffold(
-                      body: Text("hello"),
-                    );
-                    // return FilterWidget(scrollController: scrollController);
+                    return FilterWidget(scrollController: scrollController);
                   },
                 );
               },

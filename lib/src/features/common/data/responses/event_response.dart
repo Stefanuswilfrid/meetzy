@@ -43,14 +43,14 @@ enum StatusEvent {
 }
 
 class EventResponse extends Equatable {
-  final int? id;
+  final String? id;
   final int? userId;
   final String? title;
   final String? description;
   final String? imageUrl;
   final DateTime? startDateTime;
   final DateTime? endDateTime;
-  final CityEvent? city;
+  final String? city;
   final String? locationDetail;
   final int? ticketPrice;
   final int? capacity;
@@ -93,7 +93,7 @@ class EventResponse extends Equatable {
       startDateTime: json["startDatetime"] != null
           ? DateTime.parse(json["startDatetime"])
           : DateTime.now(),
-      city: json["city"].toString().cityEvent,
+      city: json["city"].toString(),
       locationDetail: json["locationDetail"],
       ticketPrice: json["ticketPrice"],
       capacity: json["capacity"],

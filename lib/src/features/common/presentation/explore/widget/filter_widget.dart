@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meetzy/src/features/common/data/responses/event_response.dart';
+import 'package:meetzy/src/features/common/presentation/explore/explore_controller.dart';
+import 'package:meetzy/src/features/common/presentation/explore/widget/category_widget.dart';
 import 'package:meetzy/src/features/common/presentation/explore/widget/filter_chip_date_widget.dart';
+import 'package:meetzy/src/features/common/presentation/explore/widget/filter_chip_location_widget.dart';
 import 'package:meetzy/themes/color_app.dart';
 import 'package:meetzy/themes/pallete.dart';
 import 'package:meetzy/themes/size_app.dart';
@@ -16,6 +20,8 @@ class FilterWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(exploreControllerProvider);
+    final controller = ref.read(exploreControllerProvider.notifier);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: SizeApp.w20),
       decoration: BoxDecoration(
@@ -51,16 +57,16 @@ class FilterWidget extends ConsumerWidget {
               ),
             ),
             Gap.h24,
-            // SizedBox(
-            //   height: 170.h,
-            //   child: ListView.builder(
-            //     shrinkWrap: true,
-            //     physics: const BouncingScrollPhysics(),
-            //     scrollDirection: Axis.horizontal,
-            //     itemCount: CategoryEvent.values.length,
-            //     itemBuilder: (context, index) => CategoryWidget(index: index),
-            //   ),
-            // ),
+            SizedBox(
+              height: 170.h,
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: CategoryEvent.values.length,
+                itemBuilder: (context, index) => CategoryWidget(index: index),
+              ),
+            ),
             Text(
               'Time & Date',
               style: TextStyle(
@@ -133,22 +139,22 @@ class FilterWidget extends ConsumerWidget {
               ),
             ),
             Gap.h12,
-            // SizedBox(
-            //   height: 120.h,
-            //   child: GridView.builder(
-            //     shrinkWrap: true,
-            //     physics: const NeverScrollableScrollPhysics(),
-            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //       crossAxisCount: 3,
-            //       childAspectRatio: 2.5,
-            //       mainAxisSpacing: 10,
-            //     ),
-            //     itemCount: CityEvent.values.length,
-            //     itemBuilder: (context, index) => FilterChipLocationWidget(
-            //       value: CityEvent.values[index],
-            //     ), // CityEvent.values[index].value.capitalize
-            //   ),
-            // ),
+            SizedBox(
+              height: 120.h,
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 2.5,
+                  mainAxisSpacing: 10,
+                ),
+                itemCount: CityEvent.values.length,
+                itemBuilder: (context, index) => FilterChipLocationWidget(
+                  value: CityEvent.values[index],
+                ), // CityEvent.values[index].value.capitalize
+              ),
+            ),
             Gap.h32,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

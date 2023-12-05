@@ -6,11 +6,11 @@ import 'package:meetzy/src/shared/string.dart';
 import 'package:meetzy/themes/color_app.dart';
 import 'package:meetzy/themes/pallete.dart';
 
-class FilterChipDateWidget extends ConsumerWidget {
-  final String name;
-  const FilterChipDateWidget({
+class FilterChipLocationWidget extends ConsumerWidget {
+  final Enum value;
+  const FilterChipLocationWidget({
     super.key,
-    required this.name,
+    required this.value,
   });
 
   @override
@@ -19,8 +19,8 @@ class FilterChipDateWidget extends ConsumerWidget {
     final controller = ref.read(exploreControllerProvider.notifier);
     return FilterChip(
       label: Text(
-        name.capitalize,
-        style: state.startDateFilter == name.toUpperCase()
+        value.name == 'other' ? 'Others' : value.name.capitalize,
+        style: state.locationFilter == value.name.toUpperCase()
             ? TextStyle(
                 fontSize: ScreenUtil().setSp(16),
                 fontWeight: FontWeight.w500,
@@ -35,7 +35,7 @@ class FilterChipDateWidget extends ConsumerWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.r),
         side: BorderSide(
-          color: state.startDateFilter == name.toUpperCase()
+          color: state.locationFilter == value.name.toUpperCase()
               ? Palette.colorGray.withOpacity(0)
               : Palette.colorGray.withOpacity(0.2),
         ),
@@ -49,9 +49,9 @@ class FilterChipDateWidget extends ConsumerWidget {
         color: ColorApp.black,
       ),
       checkmarkColor: Palette.colorWhite,
-      selected: state.startDateFilter == name.toUpperCase(),
+      selected: state.locationFilter == value.name.toUpperCase(),
       onSelected: (bool value) {
-        controller.setDateFilter(value ? name.toUpperCase() : '');
+        controller.setLocationFilter(value ? this.value.name : '');
       },
     );
   }
