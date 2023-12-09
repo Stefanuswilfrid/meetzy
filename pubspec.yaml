@@ -47,8 +47,12 @@ dependencies:
   cached_network_image: ^3.3.0
   intl: ^0.18.1
   flutter_svg: ^2.0.9
+  dio: ^5.4.0
+  freezed: ^2.4.5
 
 dev_dependencies:
+  build_runner: ^2.2.1
+
   flutter_test:
     sdk: flutter
 

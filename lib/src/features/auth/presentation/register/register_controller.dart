@@ -1,14 +1,21 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meetzy/src/features/auth/application/auth_service.dart';
+import 'package:meetzy/src/features/auth/domain/request_register.dart';
 import 'package:meetzy/src/features/auth/presentation/register/register_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meetzy/src/services/remote/network_exceptions.dart';
 
 final _firebase = FirebaseAuth.instance;
 
 class RegisterController extends StateNotifier<RegisterState> {
-  RegisterController() : super(RegisterState());
+  final AuthService _authService;
+
+  RegisterController(
+    this._authService,
+  ) : super(RegisterState());
 
   final nameController = TextEditingController();
   final emailController = TextEditingController();
@@ -27,22 +34,50 @@ class RegisterController extends StateNotifier<RegisterState> {
       state = state.copyWith(
         registerValue: const AsyncLoading(),
       );
-      final userCredentials = await _firebase.createUserWithEmailAndPassword(
-          email: _enteredEmail, password: _enteredPassword);
 
-      final result = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCredentials.user!.uid)
-          .set({
-        'fullname': nameController.text.trim(),
-        'email': _enteredEmail,
-        'role': state.roleValue,
-        // Add other user information as needed
-      });
-
-      state = state.copyWith(
-        registerValue: AsyncValue.data(userCredentials.toString()),
+      final requestRegister = RequestRegister(
+        fullname: nameController.text,
+        email: emailController.text,
+        password: passwordController.text,
+        role: state.roleValue,
       );
+
+      final result = await _authService.register(requestRegister);
+
+      result.when(
+        success: (data) {
+          // success
+          state = state.copyWith(
+            registerValue: AsyncData(data),
+          );
+        },
+        failure: (error, stackTrace) {
+          final errors = NetworkExceptions.getErrors(error);
+
+          // failure
+          state = state.copyWith(
+            registerValue: AsyncError(error, stackTrace),
+            errors: errors,
+          );
+        },
+      );
+
+      // final userCredentials = await _firebase.createUserWithEmailAndPassword(
+      //     email: _enteredEmail, password: _enteredPassword);
+
+      // final result = await FirebaseFirestore.instance
+      //     .collection('users')
+      //     .doc(userCredentials.user!.uid)
+      //     .set({
+      //   'fullname': nameController.text.trim(),
+      //   'email': _enteredEmail,
+      //   'role': state.roleValue,
+      //   // Add other user information as needed
+      // });
+
+      // state = state.copyWith(
+      //   registerValue: AsyncValue.data(userCredentials.toString()),
+      // );
     } on FirebaseException catch (error, stackTrace) {
       state = state.copyWith(
         registerValue: AsyncError(error, stackTrace),
@@ -120,6 +155,8 @@ class RegisterController extends StateNotifier<RegisterState> {
 }
 
 final registerControllerProvider =
-    StateNotifierProvider.autoDispose<RegisterController, RegisterState>(
-  (ref) => RegisterController(),
-);
+    StateNotifierProvider.autoDispose<RegisterController, RegisterState>((ref) {
+  final authService = ref.read(authServiceProvider);
+
+  return RegisterController(authService);
+});

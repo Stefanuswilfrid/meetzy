@@ -1,15 +1,19 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:meetzy/src/features/auth/application/auth_service.dart';
+import 'package:meetzy/src/features/auth/domain/request_login.dart';
 import 'package:meetzy/src/features/auth/presentation/login/login_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 final _firebase = FirebaseAuth.instance;
 
 class LoginControllerProvider extends StateNotifier<LoginState> {
-  LoginControllerProvider() : super(LoginState());
+  final AuthService _authService;
+
+  LoginControllerProvider(
+    this._authService,
+  ) : super(LoginState());
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
 
@@ -39,15 +43,34 @@ class LoginControllerProvider extends StateNotifier<LoginState> {
     );
 
     try {
-      final userCredential = await _firebase.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
+      // final userCredential = await _firebase.signInWithEmailAndPassword(
+      //   email: emailController.text.trim(),
+      //   password: passwordController.text.trim(),
+      // );
 
-      state = state.copyWith(
-          loginValue: AsyncValue.data(
-        userCredential.user?.email,
-      ));
+      // state = state.copyWith(
+      //     loginValue: AsyncValue.data(
+      //   userCredential.user?.email,
+      // ));
+      final requestLogin = RequestLogin(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      final result = await _authService.login(requestLogin);
+      result.when(
+        success: (data) {
+          // success
+          state = state.copyWith(
+            loginValue: AsyncData(data),
+          );
+        },
+        failure: (error, stackTrace) {
+          // failure
+          state = state.copyWith(
+            loginValue: AsyncError(error, stackTrace),
+          );
+        },
+      );
     } on FirebaseException catch (error, stackTrace) {
       state = state.copyWith(
         loginValue: AsyncError(error, stackTrace),
@@ -65,11 +88,16 @@ class LoginControllerProvider extends StateNotifier<LoginState> {
 
   @override
   void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 }
 
 final loginControllerProvider =
     StateNotifierProvider.autoDispose<LoginControllerProvider, LoginState>(
-  (ref) => LoginControllerProvider(),
-);
+        (ref) {
+  final authService = ref.read(authServiceProvider);
+
+  return LoginControllerProvider(authService);
+});

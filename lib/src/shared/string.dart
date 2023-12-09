@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:meetzy/src/features/auth/data/responses/user_response.dart';
 import 'package:meetzy/src/features/common/data/responses/event_response.dart';
 
 extension XString on String {
   String get capitalize =>
       "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
 
-  // StatusUser get statusUser {
-  //   switch (this) {
-  //     case 'VERIFIED':
-  //       return StatusUser.verified;
-  //     case 'REJECTED':
-  //       return StatusUser.rejected;
-  //     case 'PENDING':
-  //       return StatusUser.pending;
-  //     default:
-  //       return StatusUser.pending;
-  //   }
-  // }
+  RoleUser get roleUser {
+    switch (this) {
+      case 'ADMIN':
+        return RoleUser.admin;
+      case 'EO':
+        return RoleUser.eo;
+      default:
+        return RoleUser.user;
+    }
+  }
+
+  StatusUser get statusUser {
+    switch (this) {
+      case 'VERIFIED':
+        return StatusUser.verified;
+      case 'REJECTED':
+        return StatusUser.rejected;
+      case 'PENDING':
+        return StatusUser.pending;
+      default:
+        return StatusUser.pending;
+    }
+  }
 
   IconData get filterIcon {
     switch (this) {

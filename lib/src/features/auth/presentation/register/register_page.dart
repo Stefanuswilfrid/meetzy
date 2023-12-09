@@ -6,6 +6,7 @@ import 'package:meetzy/src/features/auth/presentation/register/register_controll
 import 'package:meetzy/src/features/auth/presentation/register/widget/register_button_section.dart';
 import 'package:meetzy/src/features/auth/presentation/register/widget/register_form_section.dart';
 import 'package:meetzy/src/routes/app_routes.dart';
+import 'package:meetzy/src/services/remote/network_exceptions.dart';
 import 'package:meetzy/themes/color_app.dart';
 
 class RegisterPage extends ConsumerWidget {
@@ -18,15 +19,14 @@ class RegisterPage extends ConsumerWidget {
         state.registerValue.whenOrNull(
           data: (message) {
             if (message != null) {
-              // Navigator.of(context).removeRouteBelow(ModalRoute.of(context)!);
-
-              // Navigator.pushNamed(context, "/login");
+              appSnackBar(context, ColorApp.green, message);
               context.goNamed(Routes.login.name);
             }
           },
           error: (e, stackTrace) {
-            final message = state.errors?['message'];
-            appSnackBar(context, ColorApp.red, "Error : $message");
+            final message =
+                NetworkExceptions.getErrorMessage(e as NetworkExceptions);
+            appSnackBar(context, ColorApp.red, message);
           },
         );
       }
