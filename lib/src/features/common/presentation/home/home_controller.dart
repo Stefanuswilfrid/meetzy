@@ -32,7 +32,6 @@ class HomeController extends StateNotifier<HomeState> {
   void fetchEvents() async {
     try {
       final events = await _commonService.fetchAllEvents();
-      print("e ${events}");
 
       state = state.copyWith(eventListItems: events);
     } catch (e) {

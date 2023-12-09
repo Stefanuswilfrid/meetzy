@@ -87,7 +87,9 @@ class SearchEventCardWidget extends StatelessWidget {
                 children: [
                   Gap.h12,
                   Text(
-                    '${event.startDatetime}-${event.startDatetime}',
+                    // '${event.startDatetime}-${event.startDatetime}',
+                    '${event.startDatetime}',
+
                     style: const TextStyle(
                       color: Palette.color,
                       fontSize: 12,

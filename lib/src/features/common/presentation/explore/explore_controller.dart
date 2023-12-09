@@ -7,6 +7,8 @@ class ExploreController extends StateNotifier<ExploreState> {
 
   ExploreController(this._commonService) : super(const ExploreState()) {
     getSearch('');
+    getEvent();
+    print("called");
   }
 
   void setSearch(String query) {
@@ -22,13 +24,16 @@ class ExploreController extends StateNotifier<ExploreState> {
       eventValue: const AsyncLoading(),
     );
     final result = await _commonService.fetchAllEvents();
-    state = state.copyWith(event: result);
+    state = state.copyWith(event: result, eventValue: AsyncData(result));
+    print("get event ${result}");
   }
 
   void getSearch(String query) async {
     state = state.copyWith(
       eventValue: const AsyncLoading(),
     );
+    state.event?.where((event) => event.title.contains(query))?.toList() ?? [];
+
     // final result = await _searchService.getSearch(query);
     // result.when(
     //   success: (data) {
