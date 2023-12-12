@@ -7,6 +7,7 @@ import 'package:meetzy/src/features/common/presentation/explore/explore_controll
 import 'package:meetzy/src/features/common/presentation/explore/widget/category_widget.dart';
 import 'package:meetzy/src/features/common/presentation/explore/widget/filter_chip_date_widget.dart';
 import 'package:meetzy/src/features/common/presentation/explore/widget/filter_chip_location_widget.dart';
+import 'package:meetzy/src/shared/extensions/date_time.dart';
 import 'package:meetzy/themes/color_app.dart';
 import 'package:meetzy/themes/pallete.dart';
 import 'package:meetzy/themes/size_app.dart';
@@ -71,6 +72,8 @@ class FilterWidget extends ConsumerWidget {
               'Time & Date',
               style: TextStyle(
                 fontSize: ScreenUtil().setSp(24),
+                fontWeight: FontWeight.w600,
+                color: ColorApp.black,
               ),
             ),
             Gap.h12,
@@ -85,50 +88,85 @@ class FilterWidget extends ConsumerWidget {
             ),
             Gap.h12,
             InkWell(
-                onTap: () async {
-                  final result = await showDateRangePicker(
-                    context: context,
-                    firstDate: DateTime(DateTime.now().year - 1),
-                    lastDate: DateTime(DateTime.now().year + 1),
-                    initialDateRange: DateTimeRange(
-                      start: DateTime.now(),
-                      end: DateTime.now().add(
-                        const Duration(days: 7),
-                      ),
+              onTap: () async {
+                final result = await showDateRangePicker(
+                  context: context,
+                  firstDate: DateTime(DateTime.now().year - 1),
+                  lastDate: DateTime(DateTime.now().year + 1),
+                  initialDateRange: DateTimeRange(
+                    start: DateTime.now(),
+                    end: DateTime.now().add(
+                      const Duration(days: 7),
                     ),
-                  );
-                  if (result != null)
-                  // controller.setPickDateFilter(
-                  //     result.start.toYyyyMMDd, result.end.toYyyyMMDd)
-                  {}
-                },
-                child: Container(
-                  width: 200.w,
-                  height: 40.h,
-                  decoration: BoxDecoration(
-                    color: Palette.color,
-                    borderRadius: BorderRadius.circular(10.r),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.calendar_today,
-                        color: Palette.colorWhite,
-                        size: 20,
+                );
+                if (result != null)
+                  controller.setPickDateFilter(
+                      result.start.toYyyyMMDd, result.end.toYyyyMMDd);
+              },
+              child: state.startDateFilter != '' &&
+                      state.startDateFilter != 'TODAY' &&
+                      state.startDateFilter != 'TOMORROW' &&
+                      state.startDateFilter != 'THIS WEEK' &&
+                      state.startDateFilter != null
+                  ? Container(
+                      width: 200.w,
+                      height: 40.h,
+                      decoration: BoxDecoration(
+                        color: Palette.color,
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
-                      Gap.w8,
-                      Text(
-                        'Choose from Calendar',
-                        style: TextStyle(
-                          fontSize: ScreenUtil().setSp(14),
-                          fontWeight: FontWeight.w400,
-                          color: ColorApp.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.calendar_today,
+                            color: Palette.colorWhite,
+                            size: 20,
+                          ),
+                          Gap.w8,
+                          Text(
+                            'Choose from Calendar',
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(14),
+                              fontWeight: FontWeight.w400,
+                              color: ColorApp.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(
+                      width: 200.w,
+                      height: 40.h,
+                      decoration: BoxDecoration(
+                        color: Palette.colorWhite,
+                        borderRadius: BorderRadius.circular(10.r),
+                        border: Border.all(
+                          color: Palette.colorGray.withOpacity(0.2),
                         ),
                       ),
-                    ],
-                  ),
-                )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.calendar_today,
+                            color: Palette.color,
+                            size: 20,
+                          ),
+                          Gap.w8,
+                          Text(
+                            'Choose from Calendar',
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(14),
+                              fontWeight: FontWeight.w400,
+                              color: ColorApp.gray,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+            ),
             Gap.h36,
             Text(
               'Location',
@@ -163,7 +201,10 @@ class FilterWidget extends ConsumerWidget {
                   width: 130,
                   height: SizeApp.h56,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.clearFilter();
+                      context.pop();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Palette.colorWhite,
                       shape: RoundedRectangleBorder(
@@ -184,7 +225,11 @@ class FilterWidget extends ConsumerWidget {
                   width: 200,
                   height: SizeApp.h56,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.getSearchByFilter();
+                      controller.clearSearch();
+                      context.pop();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Palette.color,
                       shape: RoundedRectangleBorder(

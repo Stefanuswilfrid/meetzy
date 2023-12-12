@@ -42,7 +42,7 @@ class ProfileContentSection extends ConsumerWidget {
               horizontal: context.screenHeightPercentage(.125),
             ),
             child: ButtonWidget.primary(
-              text: 'Keluar',
+              text: 'Log out',
               isEnabled: true,
               height: SizeApp.h64,
               color: ColorApp.red,
