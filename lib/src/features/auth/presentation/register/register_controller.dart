@@ -23,9 +23,6 @@ class RegisterController extends StateNotifier<RegisterState> {
   final passwordConfirmController = TextEditingController();
 
   Future<void> register() async {
-    final _enteredEmail = emailController.text.trim();
-    final _enteredPassword = passwordController.text.trim();
-
     if (!state.formKey.currentState!.validate()) {
       return;
     }
@@ -61,23 +58,6 @@ class RegisterController extends StateNotifier<RegisterState> {
           );
         },
       );
-
-      // final userCredentials = await _firebase.createUserWithEmailAndPassword(
-      //     email: _enteredEmail, password: _enteredPassword);
-
-      // final result = await FirebaseFirestore.instance
-      //     .collection('users')
-      //     .doc(userCredentials.user!.uid)
-      //     .set({
-      //   'fullname': nameController.text.trim(),
-      //   'email': _enteredEmail,
-      //   'role': state.roleValue,
-      //   // Add other user information as needed
-      // });
-
-      // state = state.copyWith(
-      //   registerValue: AsyncValue.data(userCredentials.toString()),
-      // );
     } on FirebaseException catch (error, stackTrace) {
       state = state.copyWith(
         registerValue: AsyncError(error, stackTrace),

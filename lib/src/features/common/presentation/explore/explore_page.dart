@@ -37,7 +37,7 @@ class ExplorePage extends ConsumerWidget {
                 hintText: 'Search...',
                 onChanged: (value) {
                   if (value == '') controller.getEvent();
-                  if (value.isNotEmpty) controller.getSearch(value);
+                  // if (value.isNotEmpty) controller.getSearch(value);
                   controller.setSearch(value);
                 },
               ),

@@ -13,6 +13,7 @@ import 'package:meetzy/src/features/common/presentation/profile/profile_page.dar
 import 'package:meetzy/src/routes/app_routes.dart';
 import 'package:meetzy/src/features/common/domain/event.dart';
 import 'package:meetzy/src/features/common/domain/home.dart';
+import 'package:meetzy/src/services/remote/result.dart';
 
 class HomeController extends StateNotifier<HomeState> {
   final CommonService _commonService;
@@ -30,15 +31,24 @@ class HomeController extends StateNotifier<HomeState> {
   }
 
   void fetchEvents() async {
-    try {
-      final events = await _commonService.fetchAllEvents();
-
-      state = state.copyWith(eventListItems: events);
-    } catch (e) {
-      // Handle errors (e.g., print the error)
-      print('Error fetching events: $e');
-      return;
-    }
+    state = state.copyWith(
+      homeValue: const AsyncLoading(),
+    );
+    final events = await _commonService.fetchAllEvents();
+    events.when(
+      success: (data) {
+        // state = state.copyWith(
+        //   eventListItems: data,
+        // );
+        List<Event> event = [...data.map((e) => Event.fromResponse(e))];
+        state = state.copyWith(eventListItems: event);
+      },
+      failure: (error, stackTrace) {
+        state = state.copyWith(
+          homeValue: AsyncError(error, stackTrace),
+        );
+      },
+    );
   }
 
   Widget _getScreen(index) {

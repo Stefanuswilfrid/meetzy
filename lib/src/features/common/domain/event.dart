@@ -6,7 +6,7 @@ import 'package:meetzy/src/shared/string.dart';
 
 class Event {
   final String id;
-  final int userId;
+  final String userId;
   final String title;
   final String description;
   final String imageUrl;
@@ -59,7 +59,7 @@ class Event {
   factory Event.fromMap(Map<String, dynamic> map) {
     return Event(
       id: map['id'] as String,
-      userId: map['userId'] as int,
+      userId: map['userId'] as String,
       title: map['title'] as String,
       description: map['description'] as String,
       imageUrl: map['imageUrl'] as String,
@@ -83,7 +83,7 @@ class Event {
   factory Event.fromResponse(EventResponse response) {
     return Event(
       id: response.id ?? "",
-      userId: response.userId ?? 0,
+      userId: response.userId ?? "",
       title: response.title ?? '',
       description: response.description ?? '',
       imageUrl: response.imageUrl ?? '',

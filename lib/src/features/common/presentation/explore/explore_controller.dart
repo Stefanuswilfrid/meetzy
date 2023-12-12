@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meetzy/src/features/common/application/common_service.dart';
+import 'package:meetzy/src/features/common/data/responses/event_response.dart';
+import 'package:meetzy/src/features/common/domain/event.dart';
 import 'package:meetzy/src/features/common/presentation/explore/explore_state.dart';
+import 'package:meetzy/src/services/remote/result.dart';
 
 class ExploreController extends StateNotifier<ExploreState> {
   final CommonService _commonService;
@@ -23,8 +26,22 @@ class ExploreController extends StateNotifier<ExploreState> {
     state = state.copyWith(
       eventValue: const AsyncLoading(),
     );
-    final result = await _commonService.fetchAllEvents();
-    state = state.copyWith(event: result, eventValue: AsyncData(result));
+    var result = await _commonService.fetchAllEvents();
+    result.when(
+      success: (data) {
+        List<Event> event = [...data.map((e) => Event.fromResponse(e))];
+
+        state = state.copyWith(
+          event: event,
+          eventValue: AsyncData(event),
+        );
+      },
+      failure: (error, stackTrace) {
+        state = state.copyWith(eventValue: AsyncError(error, stackTrace));
+      },
+    );
+    // result = searchMapper(result);
+    // state = state.copyWith(event: result, eventValue: AsyncData(result));
     print("get event ${result}");
   }
 

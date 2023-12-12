@@ -44,7 +44,7 @@ enum StatusEvent {
 
 class EventResponse extends Equatable {
   final String? id;
-  final int? userId;
+  final String? userId;
   final String? title;
   final String? description;
   final String? imageUrl;
