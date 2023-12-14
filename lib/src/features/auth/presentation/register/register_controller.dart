@@ -4,11 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meetzy/src/features/auth/application/auth_service.dart';
 import 'package:meetzy/src/features/auth/domain/request_register.dart';
 import 'package:meetzy/src/features/auth/presentation/register/register_state.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:meetzy/src/services/remote/network_exceptions.dart';
 
-final _firebase = FirebaseAuth.instance;
+import 'package:meetzy/src/services/remote/network_exceptions.dart';
 
 class RegisterController extends StateNotifier<RegisterState> {
   final AuthService _authService;
@@ -27,45 +24,36 @@ class RegisterController extends StateNotifier<RegisterState> {
       return;
     }
 
-    try {
-      state = state.copyWith(
-        registerValue: const AsyncLoading(),
-      );
+    state = state.copyWith(
+      registerValue: const AsyncLoading(),
+    );
 
-      final requestRegister = RequestRegister(
-        fullname: nameController.text,
-        email: emailController.text,
-        password: passwordController.text,
-        role: state.roleValue,
-      );
+    final requestRegister = RequestRegister(
+      fullname: nameController.text,
+      email: emailController.text,
+      password: passwordController.text,
+      role: state.roleValue,
+    );
 
-      final result = await _authService.register(requestRegister);
+    final result = await _authService.register(requestRegister);
 
-      result.when(
-        success: (data) {
-          // success
-          state = state.copyWith(
-            registerValue: AsyncData(data),
-          );
-        },
-        failure: (error, stackTrace) {
-          final errors = NetworkExceptions.getErrors(error);
+    result.when(
+      success: (data) {
+        // success
+        state = state.copyWith(
+          registerValue: AsyncData(data),
+        );
+      },
+      failure: (error, stackTrace) {
+        final errors = NetworkExceptions.getErrors(error);
 
-          // failure
-          state = state.copyWith(
-            registerValue: AsyncError(error, stackTrace),
-            errors: errors,
-          );
-        },
-      );
-    } on FirebaseException catch (error, stackTrace) {
-      state = state.copyWith(
-        registerValue: AsyncError(error, stackTrace),
-        errors: {'message': error.message},
-      );
-
-      throw error.message as Object;
-    }
+        // failure
+        state = state.copyWith(
+          registerValue: AsyncError(error, stackTrace),
+          errors: errors,
+        );
+      },
+    );
   }
 
   void onObscureTap() {

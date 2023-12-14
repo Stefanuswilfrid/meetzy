@@ -31,7 +31,7 @@ class ProfileContentSection extends ConsumerWidget {
             ),
           ),
           Gap.h16,
-          Text(state.user?.displayName ?? '',
+          Text(state.user?.fullname ?? '',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: ScreenUtil().setSp(24),

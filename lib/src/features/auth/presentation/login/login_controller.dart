@@ -4,9 +4,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:meetzy/src/features/auth/application/auth_service.dart';
 import 'package:meetzy/src/features/auth/domain/request_login.dart';
 import 'package:meetzy/src/features/auth/presentation/login/login_state.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-final _firebase = FirebaseAuth.instance;
 
 class LoginControllerProvider extends StateNotifier<LoginState> {
   final AuthService _authService;
@@ -42,42 +39,25 @@ class LoginControllerProvider extends StateNotifier<LoginState> {
       loginValue: const AsyncLoading(),
     );
 
-    try {
-      // final userCredential = await _firebase.signInWithEmailAndPassword(
-      //   email: emailController.text.trim(),
-      //   password: passwordController.text.trim(),
-      // );
-
-      // state = state.copyWith(
-      //     loginValue: AsyncValue.data(
-      //   userCredential.user?.email,
-      // ));
-      final requestLogin = RequestLogin(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      final result = await _authService.login(requestLogin);
-      result.when(
-        success: (data) {
-          // success
-          state = state.copyWith(
-            loginValue: AsyncData(data),
-          );
-        },
-        failure: (error, stackTrace) {
-          // failure
-          state = state.copyWith(
-            loginValue: AsyncError(error, stackTrace),
-          );
-        },
-      );
-    } on FirebaseException catch (error, stackTrace) {
-      state = state.copyWith(
-        loginValue: AsyncError(error, stackTrace),
-        errors: {'message': error.code?.replaceAll('-', ' ')},
-      );
-      return;
-    }
+    final requestLogin = RequestLogin(
+      email: emailController.text,
+      password: passwordController.text,
+    );
+    final result = await _authService.login(requestLogin);
+    result.when(
+      success: (data) {
+        // success
+        state = state.copyWith(
+          loginValue: AsyncData(data),
+        );
+      },
+      failure: (error, stackTrace) {
+        // failure
+        state = state.copyWith(
+          loginValue: AsyncError(error, stackTrace),
+        );
+      },
+    );
   }
 
   void onObscureTap() {

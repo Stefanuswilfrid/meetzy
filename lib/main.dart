@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meetzy/src/features/auth/presentation/login/login_page.dart';
 import 'package:meetzy/src/features/auth/presentation/register/register_page.dart';
-import 'package:meetzy/firebase_options.dart';
 import 'package:meetzy/src/routes/app_routes.dart';
+import 'package:meetzy/src/services/local/hive_helper.dart';
 import 'package:meetzy/themes/color_app.dart';
 import 'package:meetzy/themes/pallete.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
+  await hiveInit();
   await dotenv.load(fileName: ".env");
 
   WidgetsFlutterBinding.ensureInitialized();
-
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -40,22 +38,6 @@ class MyApp extends ConsumerWidget {
         routeInformationProvider: router.routeInformationProvider,
       ));
     });
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
   }
 }
 

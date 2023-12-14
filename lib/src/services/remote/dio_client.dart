@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meetzy/src/services/local/hive_service.dart';
 
 const _defaultConnectTimeout = Duration(seconds: 60);
 const _defaultReceiveTimeout = Duration(seconds: 60);
@@ -12,10 +13,15 @@ class DioClient {
 
   late Dio _dio;
 
+  final HiveService hiveService;
+
   DioClient({
     required Dio dio,
     required this.baseUrl,
+    required this.hiveService,
   }) {
+    final token = hiveService.getToken();
+
     _dio = dio;
     _dio
       ..options.baseUrl = baseUrl
@@ -84,11 +90,11 @@ final dioClientProvider = Provider<DioClient>((ref) {
   final dio = Dio();
   // final httpClient = HttpClient();
   final baseUrl = dotenv.get('BASE_URL');
-  // final hiveService = ref.read(hiveServiceProvider);
+  final hiveService = ref.read(hiveServiceProvider);
   return DioClient(
     baseUrl: baseUrl,
     dio: dio,
     // httpClient: httpClient,
-    // hiveService: hiveService,
+    hiveService: hiveService,
   );
 });

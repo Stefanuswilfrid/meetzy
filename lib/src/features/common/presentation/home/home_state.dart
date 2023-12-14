@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meetzy/src/features/auth/domain/user.dart';
 import 'package:meetzy/src/features/common/domain/event.dart';
 import 'package:meetzy/src/features/common/domain/home.dart';
 import 'package:meetzy/src/features/common/presentation/home/home_page.dart';
