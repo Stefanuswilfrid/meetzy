@@ -11,7 +11,7 @@ class MyEventsController extends StateNotifier<MyEventsState> {
       upcomingEventsValue: const AsyncLoading(),
       pastEventsValue: const AsyncLoading(),
     );
-    // final result = await _commonService.getMyEvents();
+    final result = await _commonService.getMyEvents();
   }
 
   void setUpcoming(bool isUpcoming) {

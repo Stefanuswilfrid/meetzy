@@ -4,22 +4,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meetzy/src/features/auth/data/auth_repository.dart';
 import 'package:meetzy/src/features/auth/domain/request_login.dart';
 import 'package:meetzy/src/features/auth/domain/request_register.dart';
+import 'package:meetzy/src/services/local/hive_service.dart';
 import 'package:meetzy/src/services/remote/result.dart';
 
 class AuthService {
   final AuthRepository _authRepository;
-  // final HiveService _hiveService;
+  final HiveService _hiveService;
 
   AuthService(
     this._authRepository,
-    // this._hiveService,
+    this._hiveService,
   );
 
   Future<Result<String?>> login(RequestLogin requestLogin) async {
     final result = await _authRepository.login(requestLogin);
     return result.when(
       success: (data) {
-        // _hiveService.saveToken(data.body['accessToken']);
+        _hiveService.saveToken(data.body['accessToken']);
 
         return const Result.success('Login Success!');
       },
@@ -45,6 +46,6 @@ class AuthService {
 
 final authServiceProvider = Provider<AuthService>((ref) {
   final authRepository = ref.read(authRepositoryProvider);
-  // final hiveService = ref.read(hiveServiceProvider);
-  return AuthService(authRepository);
+  final hiveService = ref.read(hiveServiceProvider);
+  return AuthService(authRepository, hiveService);
 });

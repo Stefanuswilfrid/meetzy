@@ -14,7 +14,6 @@ import 'package:dio/dio.dart';
 
 class AuthRepository {
   final DioClient _dioClient;
-  // late Dio _dio;
 
   AuthRepository(this._dioClient);
 
