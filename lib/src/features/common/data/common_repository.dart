@@ -39,6 +39,7 @@ class CommonRepository {
       final user = MyEventResponse.fromJson(resultBody);
       return Result.success(user);
     } catch (e, st) {
+      print("err ${e}");
       return Result.failure(NetworkExceptions.getDioException(e), st);
     }
   }

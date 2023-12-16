@@ -4,9 +4,9 @@ import 'package:meetzy/src/features/common/data/responses/ticket_reponse.dart';
 import 'package:meetzy/src/features/common/domain/event.dart';
 
 class Ticket {
-  final int id;
-  final int eventId;
-  final int userId;
+  final String id;
+  final String eventId;
+  final String userId;
   final int quantity;
   final int price;
   final Event? event;
@@ -22,9 +22,9 @@ class Ticket {
 
   factory Ticket.fromMap(Map<String, dynamic> map) {
     return Ticket(
-      id: map['id'] as int,
-      eventId: map['eventId'] as int,
-      userId: map['userId'] as int,
+      id: map['id'] as String,
+      eventId: map['eventId'] as String,
+      userId: map['userId'] as String,
       quantity: map['quantity'] as int,
       price: map['price'] as int,
       event: map['event'] as Event,
@@ -36,9 +36,9 @@ class Ticket {
 
   factory Ticket.fromResponse(TicketResponse response) {
     return Ticket(
-      id: response.id ?? 0,
-      eventId: response.eventId ?? 0,
-      userId: response.userId ?? 0,
+      id: response.id ?? "",
+      eventId: response.eventId ?? "",
+      userId: response.userId ?? "",
       quantity: response.quantity ?? 0,
       price: response.price ?? 0,
       event:

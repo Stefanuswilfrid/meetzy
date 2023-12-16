@@ -11,7 +11,23 @@ class MyEventsController extends StateNotifier<MyEventsState> {
       upcomingEventsValue: const AsyncLoading(),
       pastEventsValue: const AsyncLoading(),
     );
-    // final result = await _commonService.getMyEvents();
+    final result = await _commonService.getMyEvents();
+    result.when(
+      success: (data) {
+        state = state.copyWith(
+          upcomingEventsValue: AsyncData(data.upcomingEvents),
+          pastEventsValue: AsyncData(data.pastEvents),
+          upcomingEvents: data.upcomingEvents,
+          pastEvents: data.pastEvents,
+        );
+      },
+      failure: (error, stackTrace) {
+        state = state.copyWith(
+          upcomingEventsValue: AsyncError(error, stackTrace),
+          pastEventsValue: AsyncError(error, stackTrace),
+        );
+      },
+    );
   }
 
   void setUpcoming(bool isUpcoming) {

@@ -19,7 +19,6 @@ class HomePage extends ConsumerWidget {
     final state = ref.watch(homeControllerProvider);
     final eventList = state.eventListItems;
 
-    print("is null? ${eventList}");
     return StatusBarWidget(
         child: Scaffold(
       body: SingleChildScrollView(

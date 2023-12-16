@@ -4,9 +4,9 @@ import 'package:equatable/equatable.dart';
 import 'package:meetzy/src/features/common/data/responses/event_response.dart';
 
 class TicketResponse extends Equatable {
-  final int? id;
-  final int? eventId;
-  final int? userId;
+  final String? id;
+  final String? eventId;
+  final String? userId;
   final int? quantity;
   final int? price;
   final DateTime? createdAt;

@@ -21,6 +21,7 @@ class AuthService {
     return result.when(
       success: (data) {
         _hiveService.saveToken(data.body['accessToken']);
+        print("TOKEN ${data.body['accessToken']}");
 
         return const Result.success('Login Success!');
       },

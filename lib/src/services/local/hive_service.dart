@@ -16,7 +16,7 @@ class HiveService {
   String? getToken() {
     try {
       final hiveToken = userBox.get('token');
-      if (hiveToken != null && hiveToken != " ") return null;
+      if (hiveToken == null || hiveToken.isEmpty) return null;
 
       return hiveToken;
     } catch (error, st) {

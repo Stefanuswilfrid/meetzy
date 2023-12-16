@@ -39,8 +39,6 @@ class ExploreController extends StateNotifier<ExploreState> {
         state = state.copyWith(eventValue: AsyncError(error, stackTrace));
       },
     );
-
-    print("get event ${result}");
   }
 
   void getSearch(String query) async {

@@ -11,7 +11,6 @@ class ExploreService {
 
   Future<Result<List<Event>>> getSearch(String query) async {
     final resultEvents = await _exploreRepository.getSearch(query);
-    print("search ${resultEvents}");
     return resultEvents.when(
       success: (data) {
         List<Event> event = [...data.map((e) => Event.fromResponse(e))];

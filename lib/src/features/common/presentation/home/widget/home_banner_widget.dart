@@ -65,7 +65,7 @@ class HomeBannerWidget extends StatelessWidget {
                               left: SizeApp.w40,
                             ),
                             child: Text(
-                              'Bandung',
+                              'Jakarta',
                               style: TextStyle(
                                 fontSize: ScreenUtil().setSp(16),
                                 color: ColorApp.white,
