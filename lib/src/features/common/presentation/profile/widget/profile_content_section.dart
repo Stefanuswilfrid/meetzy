@@ -36,7 +36,7 @@ class ProfileContentSection extends ConsumerWidget {
               style: TextStyle(
                 fontSize: ScreenUtil().setSp(24),
               )),
-          Gap.h16,
+          Gap.h4,
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: context.screenHeightPercentage(.125),

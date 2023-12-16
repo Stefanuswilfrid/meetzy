@@ -18,19 +18,19 @@ class CommonService {
     return resultEvents;
   }
 
-  Future<Result<MyEvents>> getMyEvents() async {
-    String? token = _hiveService.getToken();
+  // Future<Result<MyEvents>> getMyEvents() async {
+  //   String? token = _hiveService.getToken();
 
-    if (token == null) {
-      return Result.failure(
-        const NetworkExceptions.notFound('Token is null'),
-        StackTrace.current,
-      );
-    }
+  //   if (token == null) {
+  //     return Result.failure(
+  //       const NetworkExceptions.notFound('Token is null'),
+  //       StackTrace.current,
+  //     );
+  //   }
 
-    final result = await _commonRepository.fetchMyEvents(token);
-    // return CommonMapper.mapToMyEvents(result);
-  }
+  //   final result = await _commonRepository.fetchMyEvents(token);
+  //   // return CommonMapper.mapToMyEvents(result);
+  // }
 }
 
 final commonServiceProvider = Provider<CommonService>((ref) {

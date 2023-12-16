@@ -32,7 +32,7 @@ class ExplorePage extends ConsumerWidget {
                   color: ColorApp.black,
                 ),
               ),
-              Gap.h20,
+              Gap.h16,
               ExploreFieldWidget(
                 hintText: 'Search...',
                 onChanged: (value) {
@@ -53,7 +53,6 @@ class ExplorePage extends ConsumerWidget {
                   ),
                 ),
               ),
-              Gap.h12,
               const SearchListWidget()
             ],
           ),

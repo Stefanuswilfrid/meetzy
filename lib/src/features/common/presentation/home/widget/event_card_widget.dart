@@ -167,6 +167,7 @@ class EventCardWidget extends ConsumerWidget {
                       style: TextStyle(
                         fontSize: ScreenUtil().setSp(22),
                         fontWeight: FontWeight.w600,
+                        color: ColorApp.black,
                       ),
                     ),
                   ),
@@ -184,7 +185,7 @@ class EventCardWidget extends ConsumerWidget {
                         child: Text(
                           '${DateFormat('jm').format(event.startDatetime)} - ${DateFormat('jm').format(event.endDatetime)}',
                           style: TextStyle(
-                            fontSize: ScreenUtil().setSp(16),
+                            fontSize: ScreenUtil().setSp(14),
                             color: Palette.colorGray.withOpacity(0.7),
                           ),
                         ),

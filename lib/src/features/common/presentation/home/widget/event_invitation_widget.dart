@@ -46,7 +46,7 @@ class EventInvitationWidget extends StatelessWidget {
               GestureDetector(
                 onTap: () {},
                 child: Container(
-                  width: MediaQuery.of(context).size.width * (0.2),
+                  width: MediaQuery.of(context).size.width * (0.22),
                   height: 40.h,
                   decoration: BoxDecoration(
                     color: ColorApp.white,

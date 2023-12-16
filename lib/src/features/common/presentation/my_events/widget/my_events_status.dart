@@ -15,10 +15,10 @@ class MyEventsStatus extends ConsumerWidget {
     final controller = ref.watch(myEventsControllerProvider.notifier);
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: SizeApp.w16),
+      padding: EdgeInsets.symmetric(horizontal: SizeApp.w12),
       child: Container(
         height: SizeApp.h56,
-        padding: EdgeInsets.all(SizeApp.w8),
+        padding: EdgeInsets.all(SizeApp.w4),
         decoration: BoxDecoration(
           color: ColorApp.black.withOpacity(.05),
           borderRadius: BorderRadius.circular(100.r),
