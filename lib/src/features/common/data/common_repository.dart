@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meetzy/src/features/auth/data/responses/user_response.dart';
 import 'package:meetzy/src/features/common/data/responses/event_response.dart';
 import 'package:meetzy/src/features/common/data/responses/my_event_response.dart';
 import 'package:meetzy/src/features/common/domain/event.dart';
@@ -40,6 +41,23 @@ class CommonRepository {
       return Result.success(user);
     } catch (e, st) {
       print("err ${e}");
+      return Result.failure(NetworkExceptions.getDioException(e), st);
+    }
+  }
+
+  Future<Result<UserResponse>> fetchProfile(String token) async {
+    try {
+      final result = await _dioClientTmdb.get(
+        "/api/profile",
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+      );
+      final resultBody = result['body']['body'];
+      final user = UserResponse.fromJson(resultBody);
+      return Result.success(user);
+    } catch (e, st) {
+      print("e ${e}");
       return Result.failure(NetworkExceptions.getDioException(e), st);
     }
   }

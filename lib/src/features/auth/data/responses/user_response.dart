@@ -24,7 +24,7 @@ enum StatusUser {
 }
 
 class UserResponse extends Equatable {
-  final int? id;
+  final String? id;
   final String? email;
   final String? fullname;
   final StatusUser? status;

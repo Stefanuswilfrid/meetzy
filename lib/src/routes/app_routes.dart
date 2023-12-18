@@ -16,7 +16,7 @@ final goRouterProvider = Provider<GoRouter>(
     return GoRouter(
       navigatorKey: navigatorKey,
       debugLogDiagnostics: true,
-      initialLocation: '/home',
+      initialLocation: '/splash',
       routerNeglect: true,
       redirectLimit: 1,
       routes: [

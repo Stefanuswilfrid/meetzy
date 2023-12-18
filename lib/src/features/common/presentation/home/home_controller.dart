@@ -9,17 +9,15 @@ import 'package:meetzy/src/features/common/presentation/my_events/my_events_page
 import 'package:meetzy/src/features/common/presentation/profile/profile_page.dart';
 import 'package:meetzy/src/routes/app_routes.dart';
 import 'package:meetzy/src/features/common/domain/event.dart';
-import 'package:meetzy/src/features/common/domain/home.dart';
-import 'package:meetzy/src/services/remote/result.dart';
 
 class HomeController extends StateNotifier<HomeState> {
   final CommonService _commonService;
 
   HomeController(this._commonService) : super(HomeState()) {
-    // fetchAllEvents();
     fetchEvents();
   }
   bool checkUser() {
+    print("print ${state.userValue}");
     if (state.userValue.hasError || state.userValue.value == null) {
       navigatorKey.currentContext!.goNamed(Routes.login.name);
       return false;
@@ -55,17 +53,17 @@ class HomeController extends StateNotifier<HomeState> {
       case 1:
         return const ExplorePage();
       case 2:
-        // if (checkUser()) {
-        return const MyEventsPage();
-      // } else {
-      //   return const HomePage();
-      // }
+        if (checkUser()) {
+          return const MyEventsPage();
+        } else {
+          return const HomePage();
+        }
       case 3:
-        // if (checkUser()) {
-        return const ProfilePage();
-      // } else {
-      //   return const HomePage();
-      // }
+        if (checkUser()) {
+          return const ProfilePage();
+        } else {
+          return const HomePage();
+        }
       default:
         return const HomePage();
     }
@@ -79,6 +77,26 @@ class HomeController extends StateNotifier<HomeState> {
       isExploreActive: index == 1,
       isEventsActive: index == 2,
       isProfileActive: index == 3,
+    );
+  }
+
+  void getProfile() async {
+    state = state.copyWith(
+      userValue: const AsyncLoading(),
+    );
+    final result = await _commonService.getProfile();
+    result.when(
+      success: (data) {
+        state = state.copyWith(
+          user: data,
+          userValue: AsyncData(data),
+        );
+      },
+      failure: (error, stackTrace) {
+        state = state.copyWith(
+          userValue: AsyncError(error, stackTrace),
+        );
+      },
     );
   }
 }

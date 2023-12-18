@@ -1,17 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:meetzy/src/features/auth/data/responses/user_response.dart';
+
 class User {
-  final int id;
+  final String id;
   final String email;
   final String fullname;
-  final String role;
+  final RoleUser role;
+  final StatusUser status;
 
   User({
     required this.id,
     required this.email,
     required this.fullname,
-    this.role = "User",
+    this.status = StatusUser.pending,
+    this.role = RoleUser.user,
   });
 
   Map<String, dynamic> toMap() {
@@ -19,16 +23,18 @@ class User {
       'id': id,
       'email': email,
       'fullname': fullname,
+      'status': status,
       'role': role,
     };
   }
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['id'] as int,
+      id: map['id'] as String,
       email: map['email'] as String,
       fullname: map['fullname'] as String,
-      role: map['role'] as String,
+      status: map['status'] as StatusUser,
+      role: map['role'] as RoleUser,
     );
   }
 
@@ -37,13 +43,13 @@ class User {
   factory User.fromJson(String source) =>
       User.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  // factory User.fromResponse(UserResponse response) {
-  //   return User(
-  //     id: response.id ?? 0,
-  //     email: response.email ?? '',
-  //     fullname: response.fullname ?? '',
-  //     status: response.status ?? StatusUser.pending,
-  //     role: response.role ?? RoleUser.user,
-  //   );
-  // }
+  factory User.fromResponse(UserResponse response) {
+    return User(
+      id: response.id ?? "",
+      email: response.email ?? '',
+      fullname: response.fullname ?? '',
+      status: response.status ?? StatusUser.pending,
+      role: response.role ?? RoleUser.user,
+    );
+  }
 }

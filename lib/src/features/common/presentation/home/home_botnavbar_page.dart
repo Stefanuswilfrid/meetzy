@@ -20,10 +20,18 @@ class _HomeBotNavBarScreenState extends ConsumerState<HomeBotNavBarScreen> {
   HomeState get state => ref.watch(homeControllerProvider);
   @override
   void initState() {
+    void safeRebuild() async {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        controller.getProfile();
+        controller.setPage(0);
+      });
+    }
+
+    safeRebuild();
+
     super.initState();
   }
 
-//SvgPicture.asset('assets/icons/ic_home_active.svg')
   @override
   Widget build(BuildContext context) {
     final bucket = PageStorageBucket();
