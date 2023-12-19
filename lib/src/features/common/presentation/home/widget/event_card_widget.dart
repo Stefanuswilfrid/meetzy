@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meetzy/src/features/common/domain/event.dart';
+import 'package:meetzy/src/features/common/presentation/event_detail/event_detail_controller.dart';
+import 'package:meetzy/src/routes/app_routes.dart';
+import 'package:meetzy/src/routes/extras.dart';
 import 'package:meetzy/src/shared/extensions/build_context.dart';
 import 'package:meetzy/themes/color_app.dart';
 import 'package:meetzy/themes/pallete.dart';
@@ -19,16 +23,16 @@ class EventCardWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final controller = ref.read(eventDetailControllerProvider.notifier);
+    final controller = ref.read(eventDetailControllerProvider.notifier);
     return InkWell(
-      // onTap: () => context.pushNamed(
-      //     // Routes.eventDetail.name,
-      //     // extra: Extras(
-      //     //   datas: {
-      //     //     ExtrasKey.id: event.id,
-      //     //   },
-      //     // ),
-      //     ),
+      onTap: () => context.pushNamed(
+        Routes.eventDetail.name,
+        extra: Extras(
+          datas: {
+            'id': event.id,
+          },
+        ),
+      ),
       child: Container(
         margin: EdgeInsets.only(bottom: 16.h, right: 20.w),
         decoration: BoxDecoration(

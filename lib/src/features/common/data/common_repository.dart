@@ -57,6 +57,17 @@ class CommonRepository {
       final user = UserResponse.fromJson(resultBody);
       return Result.success(user);
     } catch (e, st) {
+      return Result.failure(NetworkExceptions.getDioException(e), st);
+    }
+  }
+
+  Future<Result<EventResponse>> fetchDetail(String id) async {
+    try {
+      final result = await _dioClientTmdb.get('/api/events/$id');
+      final resultBody = result['body']['body'];
+      final event = EventResponse.fromJson(resultBody);
+      return Result.success(event);
+    } catch (e, st) {
       print("e ${e}");
       return Result.failure(NetworkExceptions.getDioException(e), st);
     }

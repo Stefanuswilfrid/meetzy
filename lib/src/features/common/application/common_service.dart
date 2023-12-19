@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meetzy/src/features/auth/domain/user.dart';
 import 'package:meetzy/src/features/common/data/common_repository.dart';
 import 'package:meetzy/src/features/common/data/responses/event_response.dart';
+import 'package:meetzy/src/features/common/domain/event.dart';
 import 'package:meetzy/src/features/common/domain/my_events.dart';
 import 'package:meetzy/src/features/common/domain/ticket.dart';
 import 'package:meetzy/src/services/local/hive_service.dart';
@@ -55,7 +56,6 @@ class CommonService {
 
   Future<Result<User>> getProfile() async {
     String? token = _hiveService.getToken();
-    print("mytoken ${token == null}");
 
     if (token == null) {
       return Result.failure(
@@ -65,10 +65,22 @@ class CommonService {
     }
 
     final result = await _commonRepository.fetchProfile(token);
-    print("prof ${result}");
     return result.when(
       success: (item) {
         return Result.success(User.fromResponse(item));
+      },
+      failure: (error, stackTrace) {
+        return Result.failure(error, stackTrace);
+      },
+    );
+  }
+
+  Future<Result<Event>> getEventById(String id) async {
+    final result = await _commonRepository.fetchDetail(id);
+    // return CommonMapper.mapToEventDetail(result);
+    return result.when(
+      success: (item) {
+        return Result.success(Event.fromResponse(item));
       },
       failure: (error, stackTrace) {
         return Result.failure(error, stackTrace);

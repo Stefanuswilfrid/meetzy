@@ -39,13 +39,11 @@ class HiveService {
     return await bookmarkEventsBox.put(event.id, eventJson);
   }
 
-  Future deleteBookmarkEvent(int eventId) async {
-    debugPrint(eventId.toString());
+  Future deleteBookmarkEvent(String eventId) async {
     await bookmarkEventsBox.delete(eventId);
   }
 
-  bool isEventBookmark(int eventId) {
-    debugPrint(eventId.toString());
+  bool isEventBookmark(String eventId) {
     return bookmarkEventsBox.containsKey(eventId);
   }
 

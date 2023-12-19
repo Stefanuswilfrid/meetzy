@@ -3,11 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meetzy/src/features/auth/presentation/login/login_page.dart';
 import 'package:meetzy/src/features/auth/presentation/register/register_page.dart';
+import 'package:meetzy/src/features/common/presentation/event_detail/event_detail_page.dart';
 import 'package:meetzy/src/features/common/presentation/home/home_botnavbar_page.dart';
 import 'package:meetzy/src/features/common/presentation/home/home_page.dart';
 import 'package:meetzy/src/features/common/presentation/splash/splash_page.dart';
+import 'package:meetzy/src/routes/extras.dart';
 
-enum Routes { login, register, home, splash }
+enum Routes { login, register, home, splash, eventDetail }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -39,6 +41,16 @@ final goRouterProvider = Provider<GoRouter>(
           path: '/home',
           name: Routes.home.name,
           builder: (context, state) => const HomeBotNavBarScreen(),
+          routes: const [],
+        ),
+        GoRoute(
+          path: '/event-detail',
+          name: Routes.eventDetail.name,
+          builder: (context, state) {
+            final extras = state.extra as Extras;
+            final id = extras.datas["id"];
+            return EventDetailPage(id: id);
+          },
           routes: const [],
         ),
       ],
