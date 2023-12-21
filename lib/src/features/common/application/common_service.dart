@@ -76,9 +76,12 @@ class CommonService {
     );
   }
 
+  void logout() {
+    _hiveService.logout();
+  }
+
   Future<Result<Event>> getEventById(String id) async {
     final result = await _commonRepository.fetchDetail(id);
-    // return CommonMapper.mapToEventDetail(result);
     return result.when(
       success: (item) {
         return Result.success(Event.fromResponse(item));

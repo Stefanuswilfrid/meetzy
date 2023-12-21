@@ -20,7 +20,6 @@ class EventDetailButtonSection extends ConsumerWidget {
     final stateHome = ref.watch(homeControllerProvider);
     final controller = ref.read(homeControllerProvider.notifier);
     final detailEvent = state.event!;
-    print("saddas ${detailEvent}");
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(

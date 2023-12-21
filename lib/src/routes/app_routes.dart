@@ -9,9 +9,18 @@ import 'package:meetzy/src/features/common/presentation/event_detail/event_detai
 import 'package:meetzy/src/features/common/presentation/home/home_botnavbar_page.dart';
 import 'package:meetzy/src/features/common/presentation/home/home_page.dart';
 import 'package:meetzy/src/features/common/presentation/splash/splash_page.dart';
+import 'package:meetzy/src/features/common/presentation/ticket_detail/ticket_detail_page.dart';
 import 'package:meetzy/src/routes/extras.dart';
 
-enum Routes { login, register, home, splash, eventDetail, checkout }
+enum Routes {
+  login,
+  register,
+  home,
+  splash,
+  eventDetail,
+  checkout,
+  ticketDetail
+}
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -62,6 +71,16 @@ final goRouterProvider = Provider<GoRouter>(
             final extras = state.extra as Extras;
             final ticket = extras.datas['ticket'] as Ticket;
             return CheckoutPage(ticket: ticket);
+          },
+          routes: const [],
+        ),
+        GoRoute(
+          path: '/ticket-detail',
+          name: Routes.ticketDetail.name,
+          builder: (context, state) {
+            final extras = state.extra as Extras;
+            final ticket = extras.datas['ticket'] as Ticket;
+            return TicketDetail(ticket: ticket);
           },
           routes: const [],
         ),

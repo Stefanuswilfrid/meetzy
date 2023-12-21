@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meetzy/src/common_widgets/card_event/card_event_widget.dart';
 import 'package:meetzy/src/features/common/presentation/my_events/my_events_controller.dart';
+import 'package:meetzy/src/routes/app_routes.dart';
+import 'package:meetzy/src/routes/extras.dart';
 import 'package:meetzy/themes/size_app.dart';
 
 class MyEventsList extends ConsumerWidget {
@@ -19,7 +21,14 @@ class MyEventsList extends ConsumerWidget {
             Column(
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => context.pushNamed(
+                    Routes.ticketDetail.name,
+                    extra: Extras(
+                      datas: {
+                        'ticket': ticket,
+                      },
+                    ),
+                  ),
                   child: CardEventWidget(ticket.event!),
                 ),
                 Gap.h20,
@@ -34,6 +43,14 @@ class MyEventsList extends ConsumerWidget {
             Column(
               children: [
                 GestureDetector(
+                  onTap: () => context.pushNamed(
+                    Routes.ticketDetail.name,
+                    extra: Extras(
+                      datas: {
+                        'ticket': ticket,
+                      },
+                    ),
+                  ),
                   child: CardEventWidget(ticket.event!),
                 ),
                 Gap.h20,

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meetzy/src/common_widgets/padding/padding_widget.dart';
 import 'package:meetzy/src/common_widgets/status_bar/status_bar_widget.dart';
+import 'package:meetzy/src/features/common/presentation/profile/widget/profile_bookmark.dart';
 import 'package:meetzy/src/features/common/presentation/profile/widget/profile_content_section.dart';
 import 'package:meetzy/themes/color_app.dart';
 import 'package:meetzy/themes/size_app.dart';
@@ -42,7 +43,7 @@ class ProfilePage extends ConsumerWidget {
                       ),
                     ),
                     Gap.h12,
-                    // const ProfileBookmark(),
+                    const ProfileBookmark(),
                   ],
                 ),
               ),

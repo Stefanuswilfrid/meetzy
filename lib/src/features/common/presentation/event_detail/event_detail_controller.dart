@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meetzy/src/common_widgets/snack_bar/snack_bar_widget.dart';
 import 'package:meetzy/src/features/common/application/common_service.dart';
+import 'package:meetzy/src/features/common/domain/event.dart';
 import 'package:meetzy/src/features/common/presentation/event_detail/event_detail_state.dart';
 import 'package:meetzy/src/services/local/hive_service.dart';
 import 'package:meetzy/themes/color_app.dart';
@@ -18,7 +19,6 @@ class EventDetailController extends StateNotifier<EventDetailState> {
     );
 
     final result = await _commonService.getEventById(id);
-    print("res $result");
 
     result.when(
       success: (data) {
@@ -34,6 +34,26 @@ class EventDetailController extends StateNotifier<EventDetailState> {
           eventValue: AsyncError(error, stackTrace),
         );
       },
+    );
+  }
+
+  bool isBookmarkEvent(String id) {
+    return _hiveService.isEventBookmark(id);
+  }
+
+  void toggleBookmarkEventById(BuildContext context, String id, Event event) {
+    final isBookmark = _hiveService.isEventBookmark(id);
+    if (isBookmark) {
+      _hiveService.deleteBookmarkEvent(id);
+      appSnackBar(
+          context, ColorApp.green, 'Event successfully removed from bookmarks');
+    } else {
+      _hiveService.saveBookmarkEvent(event);
+      appSnackBar(context, ColorApp.green, 'Event successfully bookmarked');
+    }
+
+    state = state.copyWith(
+      isBookmarkEvent: _hiveService.isEventBookmark(id),
     );
   }
 
@@ -54,10 +74,6 @@ class EventDetailController extends StateNotifier<EventDetailState> {
     state = state.copyWith(
       isBookmarkEvent: _hiveService.isEventBookmark(state.event!.id),
     );
-  }
-
-  bool isBookmarkEvent(String id) {
-    return _hiveService.isEventBookmark(id);
   }
 }
 

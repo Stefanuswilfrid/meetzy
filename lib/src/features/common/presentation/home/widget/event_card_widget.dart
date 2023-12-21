@@ -117,8 +117,8 @@ class EventCardWidget extends ConsumerWidget {
                           right: 10.w,
                           child: InkWell(
                             onTap: () {
-                              // controller.toggleBookmarkEventById(
-                              //     context, event.id, event);
+                              controller.toggleBookmarkEventById(
+                                  context, event.id, event);
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -131,22 +131,17 @@ class EventCardWidget extends ConsumerWidget {
                                   Radius.circular(10.r),
                                 ),
                               ),
-                              child: const Icon(
-                                Icons.bookmark_border_rounded,
-                                color: ColorApp.gray,
-                                size: 20,
-                              ),
-                              // controller.isBookmarkEvent(event.id)
-                              //     ? const Icon(
-                              //         Icons.bookmark_rounded,
-                              //         color: ColorApp.red,
-                              //         size: 20,
-                              //       )
-                              //     : const Icon(
-                              //         Icons.bookmark_border_rounded,
-                              //         color: ColorApp.gray,
-                              //         size: 20,
-                              //       ),
+                              child: controller.isBookmarkEvent(event.id)
+                                  ? const Icon(
+                                      Icons.bookmark_rounded,
+                                      color: ColorApp.red,
+                                      size: 20,
+                                    )
+                                  : const Icon(
+                                      Icons.bookmark_border_rounded,
+                                      color: ColorApp.gray,
+                                      size: 20,
+                                    ),
                             ),
                           ),
                         ),

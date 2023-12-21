@@ -25,7 +25,6 @@ class EventDetailContentSection extends ConsumerWidget {
     final controller = ref.read(eventDetailControllerProvider.notifier);
     final state = ref.watch(eventDetailControllerProvider);
     final detailEvent = state.event!;
-    print("oi");
     return Stack(
       children: [
         CachedNetworkImage(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meetzy/gen/assets.gen.dart';
 import 'package:meetzy/src/common_widgets/snack_bar/snack_bar_widget.dart';
 import 'package:meetzy/src/features/common/presentation/home/home_controller.dart';
 import 'package:meetzy/src/shared/button_widget.dart';
@@ -35,6 +36,8 @@ class ProfileContentSection extends ConsumerWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: ScreenUtil().setSp(24),
+                fontWeight: FontWeight.w500,
+                color: ColorApp.black,
               )),
           Gap.h4,
           Padding(
@@ -47,7 +50,7 @@ class ProfileContentSection extends ConsumerWidget {
               height: SizeApp.h64,
               color: ColorApp.red,
               onTap: () {
-                // controller.logout();
+                controller.logout();
                 appSnackBar(context, ColorApp.green, 'Logout success');
               },
               padding: EdgeInsets.symmetric(

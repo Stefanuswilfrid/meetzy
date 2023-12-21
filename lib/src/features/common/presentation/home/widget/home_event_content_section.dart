@@ -16,40 +16,6 @@ class HomeEventContentSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final List<Event> eventList = [
-    //   Event(
-    //     id: '1',
-    //     userId: 1,
-    //     title: 'Sample Event 1',
-    //     description: 'Description for Sample Event 1',
-    //     imageUrl:
-    //         'https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    //     startDatetime: DateTime.now(),
-    //     endDatetime: DateTime.now().add(Duration(days: 1)),
-    //     city: "Jakarta",
-    //     locationDetail: 'Sample Location 1',
-    //     ticketPrice: 10,
-    //     capacity: 100,
-    //     remainingCapacity: 50,
-    //   ),
-    //   Event(
-    //     id: '2',
-    //     userId: 1,
-    //     title: 'Sample Event 2',
-    //     description: 'Description for Sample Event 2',
-    //     imageUrl:
-    //         'https://images.unsplash.com/photo-1570498839593-e565b39455fc?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    //     startDatetime: DateTime.now().add(Duration(days: 2)),
-    //     endDatetime: DateTime.now().add(Duration(days: 3)),
-    //     city: "Bandung",
-    //     locationDetail: 'Sample Location 2',
-    //     ticketPrice: 15,
-    //     capacity: 150,
-    //     remainingCapacity: 75,
-    //   ),
-    //   // Add more sample events as needed
-    // ];
-
     return eventList == null
         ? CircularProgressIndicator()
         : Container(

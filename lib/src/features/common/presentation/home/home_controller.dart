@@ -17,7 +17,6 @@ class HomeController extends StateNotifier<HomeState> {
     fetchEvents();
   }
   bool checkUser() {
-    print("print ${state.userValue}");
     if (state.userValue.hasError || state.userValue.value == null) {
       navigatorKey.currentContext!.goNamed(Routes.login.name);
       return false;
@@ -32,9 +31,6 @@ class HomeController extends StateNotifier<HomeState> {
     final events = await _commonService.fetchAllEvents();
     events.when(
       success: (data) {
-        // state = state.copyWith(
-        //   eventListItems: data,
-        // );
         List<Event> event = [...data.map((e) => Event.fromResponse(e))];
         state = state.copyWith(eventListItems: event);
       },
@@ -77,6 +73,15 @@ class HomeController extends StateNotifier<HomeState> {
       isExploreActive: index == 1,
       isEventsActive: index == 2,
       isProfileActive: index == 3,
+    );
+  }
+
+  void logout() {
+    setPage(0);
+    _commonService.logout();
+    state = state.copyWith(
+      user: null,
+      userValue: const AsyncData(null),
     );
   }
 
