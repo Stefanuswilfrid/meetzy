@@ -4,6 +4,7 @@ import 'package:meetzy/src/features/common/data/common_repository.dart';
 import 'package:meetzy/src/features/common/data/responses/event_response.dart';
 import 'package:meetzy/src/features/common/domain/event.dart';
 import 'package:meetzy/src/features/common/domain/my_events.dart';
+import 'package:meetzy/src/features/common/domain/request_ticket.dart';
 import 'package:meetzy/src/features/common/domain/ticket.dart';
 import 'package:meetzy/src/services/local/hive_service.dart';
 import 'package:meetzy/src/services/remote/network_exceptions.dart';
@@ -81,6 +82,18 @@ class CommonService {
     return result.when(
       success: (item) {
         return Result.success(Event.fromResponse(item));
+      },
+      failure: (error, stackTrace) {
+        return Result.failure(error, stackTrace);
+      },
+    );
+  }
+
+  Future<Result<String?>> createTicket(RequestTicket ticket) async {
+    final result = await _commonRepository.postTicket(ticket);
+    return result.when(
+      success: (data) {
+        return Result.success(data.message);
       },
       failure: (error, stackTrace) {
         return Result.failure(error, stackTrace);

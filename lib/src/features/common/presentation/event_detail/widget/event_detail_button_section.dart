@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meetzy/src/features/common/domain/ticket.dart';
 import 'package:meetzy/src/features/common/presentation/event_detail/event_detail_controller.dart';
 import 'package:meetzy/src/features/common/presentation/home/home_controller.dart';
 import 'package:meetzy/src/routes/app_routes.dart';
+import 'package:meetzy/src/routes/extras.dart';
 import 'package:meetzy/src/shared/button_widget.dart';
 import 'package:meetzy/src/shared/extensions/build_context.dart';
 import 'package:meetzy/themes/color_app.dart';
@@ -46,21 +48,21 @@ class EventDetailButtonSection extends ConsumerWidget {
               height: SizeApp.h72,
               onTap: () {
                 if (controller.checkUser()) {
-                  // context.pushNamed(
-                  //   Routes.checkout.name,
-                  //   extra: Extras(
-                  //     datas: {
-                  //       ExtrasKey.ticket: Ticket(
-                  //         id: 0,
-                  //         eventId: state.event!.id,
-                  //         userId: stateHome.user!.id,
-                  //         quantity: state.quantity,
-                  //         price: detailEvent.ticketPrice * state.quantity,
-                  //         event: detailEvent,
-                  //       )
-                  //     },
-                  //   ),
-                  // );
+                  context.pushNamed(
+                    Routes.checkout.name,
+                    extra: Extras(
+                      datas: {
+                        'ticket': Ticket(
+                          id: '0',
+                          eventId: state.event!.id,
+                          userId: stateHome.user!.id,
+                          quantity: state.quantity,
+                          price: detailEvent.ticketPrice * state.quantity,
+                          event: detailEvent,
+                        )
+                      },
+                    ),
+                  );
                 }
               },
             ),

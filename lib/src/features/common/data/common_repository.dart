@@ -4,9 +4,11 @@ import 'package:meetzy/src/features/auth/data/responses/user_response.dart';
 import 'package:meetzy/src/features/common/data/responses/event_response.dart';
 import 'package:meetzy/src/features/common/data/responses/my_event_response.dart';
 import 'package:meetzy/src/features/common/domain/event.dart';
+import 'package:meetzy/src/features/common/domain/request_ticket.dart';
 import 'package:meetzy/src/services/remote/dio_client.dart';
 import 'package:meetzy/src/services/remote/network_exceptions.dart';
 import 'package:meetzy/src/services/remote/result.dart';
+import 'package:meetzy/src/shared/api_response.dart';
 
 class CommonRepository {
   final DioClient _dioClientTmdb;
@@ -69,6 +71,18 @@ class CommonRepository {
       return Result.success(event);
     } catch (e, st) {
       print("e ${e}");
+      return Result.failure(NetworkExceptions.getDioException(e), st);
+    }
+  }
+
+  Future<Result<ApiResponse>> postTicket(RequestTicket data) async {
+    try {
+      final response =
+          await _dioClientTmdb.post("/api/tickets", data: data.toJson());
+
+      return Result.success(ApiResponse.fromJson(response['body']));
+    } catch (e, st) {
+      print("err ${e}");
       return Result.failure(NetworkExceptions.getDioException(e), st);
     }
   }

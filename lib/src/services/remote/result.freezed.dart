@@ -216,6 +216,8 @@ abstract class _$$FailureImplCopyWith<T, $Res> {
       __$$FailureImplCopyWithImpl<T, $Res>;
   @useResult
   $Res call({NetworkExceptions error, StackTrace stackTrace});
+
+  $NetworkExceptionsCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -229,11 +231,11 @@ class __$$FailureImplCopyWithImpl<T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? error = freezed,
+    Object? error = null,
     Object? stackTrace = null,
   }) {
     return _then(_$FailureImpl<T>(
-      freezed == error
+      null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as NetworkExceptions,
@@ -242,6 +244,14 @@ class __$$FailureImplCopyWithImpl<T, $Res>
           : stackTrace // ignore: cast_nullable_to_non_nullable
               as StackTrace,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $NetworkExceptionsCopyWith<$Res> get error {
+    return $NetworkExceptionsCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -265,14 +275,13 @@ class _$FailureImpl<T> implements Failure<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FailureImpl<T> &&
-            const DeepCollectionEquality().equals(other.error, error) &&
+            (identical(other.error, error) || other.error == error) &&
             (identical(other.stackTrace, stackTrace) ||
                 other.stackTrace == stackTrace));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(error), stackTrace);
+  int get hashCode => Object.hash(runtimeType, error, stackTrace);
 
   @JsonKey(ignore: true)
   @override
