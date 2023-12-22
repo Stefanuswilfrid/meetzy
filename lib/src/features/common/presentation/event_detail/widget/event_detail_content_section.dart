@@ -111,7 +111,7 @@ class EventDetailContentSection extends ConsumerWidget {
                         isEnabled: true,
                         height: SizeApp.h36,
                         padding: EdgeInsets.symmetric(
-                          horizontal: SizeApp.w16,
+                          horizontal: SizeApp.w12,
                         ),
                       ),
                     ],
