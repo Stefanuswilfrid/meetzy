@@ -29,12 +29,14 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 
 -->
-
+<div align="center"> 
 </a>
+<img clas src="assets/meetzy.png"  alt="Logo"  width="250"  />
 
 <h3  align="center">Meetzy</h3>
 
 <p  align="center">App to manage Events
+</div>
 
 <br/>
 <br/>
@@ -53,11 +55,7 @@ Check out the demo of the Meetzy app [here](https://drive.google.com/file/d/1jHR
 
 [![Flutter][Flutter.dev]][Flutter-url] <br>
 
-[![Riverpod][Riverpod.dev]][Riverpod-url] <br>
-
-[![Express.js][Express-badge]][Express-url] <br>
-
-[![Prisma][Prisma-badge]][Prisma-url] <br>
+Tech Used : Hive, Riverpod, Dio and a bit of testing.
 
 <p  align="right">(<a  href="#readme-top">back to top</a>)</p>
 
