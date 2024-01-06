@@ -57,7 +57,6 @@ Check out the promo video of Meetzy [here](https://drive.google.com/file/d/1fbD0
 
 Tech Used : Hive, Riverpod, Dio and a bit of testing.
 
-<p  align="right">(<a  href="#readme-top">back to top</a>)</p>
 
 <!-- FEATURES -->
 
