@@ -56,7 +56,8 @@ Check out the promo video of Meetzy [here](https://drive.google.com/file/d/1fbD0
 [![Flutter][Flutter.dev]][Flutter-url] <br>
 
 Tech Used : Hive, Riverpod, Dio and a bit of testing.
-Server : <a href="https://github.com/Stefanuswilfrid/meetzy-backend">Server Link</a>
+
+Server : <a href="https://github.com/Stefanuswilfrid/meetzy-backend">Server</a>
 
 <!-- FEATURES -->
 
